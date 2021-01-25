@@ -10,26 +10,27 @@
 
         <link href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}" rel="stylesheet"/>
         <link href="{{ url_for('static', filename = 'css/x.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename = 'css/style.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css">
     {% endblock %}
 </head>
 
-<body>
+<body class="backgroud1">
 
 <div class="container">
     <div class="row">
         <div class="col-md-3">
             <div class="myself">
                 <a href="{{ url_for('blog.index') }}">
-                <h1>
-                    PLX
-                </h1>
-{#                <br>#}
-                <h2>
-                    BLOG
-                </h2>
-                {#                <img src="{{ url_for('static', filename='pics/logo1.jpg') }}"#}
-                {#                                                           alt="">#}
+                    <h1>
+                        PLX
+                    </h1>
+                    {#                <br>#}
+                    <h2>
+                        BLOG
+                    </h2>
+                    {#                <img src="{{ url_for('static', filename='pics/logo1.jpg') }}"#}
+                    {#                                                           alt="">#}
                 </a>
             </div>
         </div>
@@ -51,11 +52,11 @@
 
         </div>
         <div class="col-md-1">
-            <a id="s" class="btn btn-default" href={{ url_for('admin.login') }}>登录</a>
+            <a id="s" class="btn btn-primary" href={{ url_for('admin.login') }}>登录</a>
         </div>
 
         <div class="col-md-1">
-            <a id="s" class="btn btn-default" href={{ url_for('admin.register') }}>注册</a>
+            <a id="s" class="btn btn-primary" href={{ url_for('admin.register') }}>注册</a>
         </div>
     </div>
 
@@ -63,7 +64,7 @@
     {% block navbar %}
 
         <ul class="nav nav-pills" style="margin-top:60px">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('blog.index') }}">首页</a>
             </li>
             <li class="nav-item">
@@ -81,39 +82,36 @@
                 <a href="https://gitee.com/Yuandaorrr/" target="_blank">我的gitee</a>
             </li>
         </ul>
-
-
-
     {% endblock %}
 
-    <div class="main">
-        {% for message in get_flashed_messages(with_categories=True) %}
-            <div class="alert alert-{{ message[0] }}" role="alert">
-                <button type="button" class="close" data-dismiss="alert">&times</button>
-                {{ message[1] }}
-            </div>
-        {% endfor %}
 
-    </div>
     <div class="row">
-        <div class="col-md-9">
-            <div class="main">
-                {% block content %}
+        <br>
+    </div>
 
-                {% endblock content %}
-                {% block footer %} {% endblock %}
 
-            </div>
+    {#    <div class="main">#}
+    {#        {% for message in get_flashed_messages(with_categories=True) %}#}
+    {#            <div class="alert alert-{{ message[0] }}" role="alert">#}
+    {#                <button type="button" class="close" data-dismiss="alert">&times</button>#}
+    {#                {{ message[1] }}#}
+    {#            </div>#}
+    {#        {% endfor %}#}
+    {##}
+    {#    </div>#}
+
+    <div class="row">
+        <div>
+            {% block content %}
+            {% endblock content %}
+
+            {% block footer %}
+            {% endblock %}
+
         </div>
-        <div class="col-md-3">
 
-            {% block subhead %}
-
-            {% endblock subhead %}
-        </div>
-
-
-
+{#        {% block subhead %}#}
+{#        {% endblock subhead %}#}
 
         {% block scripts %}
             <script type="text/javascript"

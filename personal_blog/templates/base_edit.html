@@ -12,16 +12,28 @@
 {% block title %} 编辑文章 {% endblock %}
 {% block content %}
     <form method="POST">
-        {{ form.csrf_token }}
-        {{ form.title.label }} <br>
-        {{ form.title }} <br><br>
-        {{ form.category.label }}<br>
-        {{ form.category }}<br><br>
-        {{ form.body.label }}
-        {{ form.body }}
-        {{ form.submit }}
 
+        {{ form.csrf_token }}
+
+        {{ form.title.label }}
+        <br>
+        {{ form.title }}
+        <br><br>
+        {{ form.category.label }}
+        <br>
+        {{ form.category }}
+        <br><br>
+        {{ form.body.label }}
+        <br><br>
+        {{ form.body }}
+        <br><br>
+
+        {{ form.submit }}
     </form>
+    <br>
+    <br>
+    <br>
+    <br>
 {% endblock %}
     
 
