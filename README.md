@@ -104,7 +104,7 @@ class PostForm(FlaskForm):
 
 ```
 
-![image-20210126020950863](image/image-20210126020950863.png)
+![image-20210126025059960](image/image-20210126025059960.png)
 
 5. [HTML 表单](https://www.runoob.com/html/html-forms.html)，让用户输入账号、文章信息等数据
 
