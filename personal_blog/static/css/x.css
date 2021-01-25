@@ -1,0 +1,35 @@
+body {
+
+}
+
+a {
+    color:black;
+}
+
+.main {
+    border: black solid 1px;
+
+}
+
+.myself img {
+    width: 180px;
+    height: 100px;
+}
+
+#q {
+    width: 370px;
+    height: 40px;
+    margin-top: 20px;
+    border: solid 1px;
+    padding:0
+}
+
+#s {
+    width: 90px;
+    margin-top: 25px;
+    margin-left:0;
+}
+
+#subtitle{
+    color: greenyellow;
+}

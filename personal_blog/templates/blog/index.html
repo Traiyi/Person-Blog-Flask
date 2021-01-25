@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/pagination.html' import render_pagination %}
+{%block title %}PLX的个人网站{% endblock %}
+
+
+
+
+
+{% block content %}
+    <div>
+        <div>
+
+            {% include 'blog/_posts.html' %}
+            {% if posts %}
+                <div class="pag">{{ render_pagination(pagination) }}</div>
+            {% endif %}
+        </div>
+
+<!--
+        <div class="col-sm-4 sidebar">
+            {% include 'blog/sidebar.html' %}
+        </div>
+-->
+    </div>
+
+
+{% endblock %}
+
+
