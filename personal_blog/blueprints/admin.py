@@ -35,13 +35,13 @@ def register():
         #
         # return redirect_back()
 
-    return render_template('admin/register.html', form=form)
+    登录
 
 
 @admin_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        flash(u'你已经登陆了！', 'info')
+        flash(u'你已经登录了！', 'info')
         return redirect(url_for('blog.index'))
 
     form = LoginForm()
@@ -63,7 +63,7 @@ def login():
                 login_user(admin, remember)
                 # config.user_id =admin.get_id()
                 # print(config.user_id)
-                flash('登陆成功', 'info')
+                flash('登录成功', 'info')
                 return redirect_back()
 
             flash('账号密码错误', 'warning')
@@ -81,7 +81,7 @@ def logout():
 
 
 @admin_bp.route('/setting')
-@login_required  # 视图保护，只有登陆了才能看到这个被这个装饰器修饰的路由
+@login_required  # 视图保护，只有登录了才能看到这个被这个装饰器修饰的路由
 def setting():
     return render_template('admin/setting.html')
 

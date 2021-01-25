@@ -9,7 +9,7 @@ class LoginForm(FlaskForm):
     username = StringField('用户名', validators=[DataRequired(), Length(1, 20)])
     password = PasswordField('密码', validators=[DataRequired(), Length(1, 128)])
     remember = BooleanField('记住我')
-    submit = SubmitField('登陆')
+    submit = SubmitField('登录')
 
 class RegisterForm(FlaskForm):
     username = StringField('用户名', validators=[DataRequired(), Length(1, 20)])
@@ -42,7 +42,7 @@ class PostForm(FlaskForm):
 class AdminForm(FlaskForm):
     username = StringField('账号', validators=[DataRequired(), Length(1, 20)])
     password = PasswordField('密码', validators=[DataRequired(), Length(1, 128)])
-    submit = SubmitField('登陆')
+    submit = SubmitField('登录')
 
 
 class SetPasswordform(FlaskForm):

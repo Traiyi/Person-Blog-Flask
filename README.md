@@ -8,23 +8,23 @@ Person Blog是一款简易个人博客网站。专为个人用户打造的个性
 
 **功能框架结构图**
 
-![image-20210124224302723](image/image-20210124224302723.png)
+![image-20210126024144132](image/image-20210126024144132.png)
 
 # 问题表述
 
 
 
-1. **用户画象**：热衷于展示个性18-28的年轻人
-2. **用户需求**：独特的展示自我的平台
-3. **用户使用场景**：在学习、生活中，有所思考、有所心得，希望能分享、传播给所有人，就可以在该系统上随时随地的发表自己的文章，分享给大家。
-4. **用户任务**：向广大互联网分享自己的想法
-5. **用户痛点**：个性表达是每个人的天性，尤其是青少年，青春的活跃促使他们有着比常人更旺盛的表达欲望。但是表达途径的缺乏和单一阻碍了他们
-6. **产品益点**：有助于人们表达自我
+1. **用户画象**:热衷于展示个性18-28的年轻人
+2. **用户需求**:独特的展示自我的平台
+3. **用户使用场景**:在学习、生活中，有所思考、有所心得，希望能分享、传播给所有人，就可以在该系统上随时随地的发表自己的文章，分享给大家。
+4. **用户任务**:向广大互联网分享自己的想法
+5. **用户痛点**:个性表达是每个人的天性，尤其是青少年，青春的活跃促使他们有着比常人更旺盛的表达欲望。但是表达途径的缺乏和单一阻碍了他们
+6. **产品益点**:有助于人们表达自我
 
 # 解决方案表述
 
 
-本项目主要通过主页展示、登陆系统、文章分类、文章编写、文章展示、文章管理等6个功能，搭配 Bootstrap 的统一样式模版及 HTML 、CSS 相关知识来完成，如下为整个功能的完成部分。
+本项目主要通过主页展示、登录注册、文章搜索、分类管理、文章管理、设置中心等6个功能，搭配 Bootstrap 的统一样式模版及 HTML 、CSS 相关知识来完成，如下为整个功能的完成部分。
 
 
 # 编程功能的基本描述
@@ -32,13 +32,14 @@ Person Blog是一款简易个人博客网站。专为个人用户打造的个性
 
 本项目主要功能有
 1. 主页展示 
-2. 登陆系统
-3. 文章分类
-4. 文章编写
-5. 文章展示
-6. 文章管理。
+2. 登录注册
+3. 文章搜索
+4. 分类管理
+5. 文章管理
+6. 设置中心
 
-具体涉及的知识点如下：
+
+具体涉及的知识点如下:
 
 
 1. [Flask 第三方模块](https://read.helloflask.com/)的使用
@@ -83,13 +84,35 @@ class Admin(db.Model, UserMixin):
     <link rel="stylesheet" href="https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css">
 ```
 
-4. [HTML 表单](https://www.runoob.com/html/html-forms.html)，让用户输入账号、文章信息等数据
+
+4. [ckeditor](https://ckeditor.com/)，富文本编辑API
+
+```python
+from flask_ckeditor import CKEditorField
+
+class PostForm(FlaskForm):
+    title = StringField('标题', validators=[DataRequired(), Length(1, 60)], render_kw={'class':'form-title'})
+    category = SelectField('分类', coerce=int, default=1)
+    body = CKEditorField('文章主体', validators=[DataRequired()])
+    submit = SubmitField('发布')
+
+    def __init__(self, *args, **kwargs):
+        super(PostForm, self).__init__(*args, **kwargs)
+        self.category.choices = [(category.id, category.name)
+                                 for category in Category.query.order_by(Category.name).all()]
+
+
+```
+
+![image-20210126020950863](image/image-20210126020950863.png)
+
+5. [HTML 表单](https://www.runoob.com/html/html-forms.html)，让用户输入账号、文章信息等数据
 
 ```python
 {% block content %}
     <div class="container h-100">
         <div class="row h-100 page-header justify-content-center align-items-center">
-            <h1>登陆</h1>
+            <h1>登录</h1>
         </div>
         <div class="row h-100 justify-content-center align-items-center">
             <form method="post">
@@ -108,7 +131,7 @@ class Admin(db.Model, UserMixin):
 @admin_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        flash(u'你已经登陆了！', 'info')
+        flash(u'你已经登录了！', 'info')
         return redirect(url_for('blog.index'))
 
     form = LoginForm()
@@ -120,7 +143,7 @@ def login():
         if admin:
             if admin.check_password(password):
                 login_user(admin, remember)
-                flash('登陆成功', 'info')
+                flash('登录成功', 'info')
                 return redirect_back()
 
             flash('账号密码错误', 'warning')
@@ -147,10 +170,10 @@ admin = Admin.query.first()
 
 
 
-| 知识点         | Flask 第三方模块的使用 | 数据库 | Bootstrap | HTML表单 | HTTP 请求 | Python基础 |
-| -------------- | ---------------------- | ------ | --------- | -------- | --------- | ---------- |
-| 学习成本（天） | 2                      | 1.5    | 1.5       | 2        | 1         | 2          |
-| 应用比例       | 20%                    | 15%    | 15%       | 20%      | 10%       | 20%        |
+| 知识点         | Flask 第三方模块的使用  | 数据库 | Bootstrap|ckeditor| HTML表单 | HTTP 请求 | Python基础 |
+| -------------- | ---------------------- | ------ | ---------| --------- | -------- | --------- | ---------- |
+| 学习成本（天） | 2                      | 1.5    | 1.5      |1.5 | 1        | 1         | 1.5        |
+| 应用比例       | 20%                    | 15%    | 15%      |15% | 10%      | 10%       | 15%        |
 
 
 
@@ -161,25 +184,38 @@ admin = Admin.query.first()
 
 
 1. 主页展示: http://traiyipaw.pythonanywhere.com/
-2. 登陆系统: http://traiyipaw.pythonanywhere.com/login
-3. 文章分类: http://traiyipaw.pythonanywhere.com/category/manage
-4. 文章编写: http://traiyipaw.pythonanywhere.com/new_post
-5. 文章展示: http://traiyipaw.pythonanywhere.com/
-6. 文章管理: http://traiyipaw.pythonanywhere.com/manage_post
+2. 登录注册: http://traiyipaw.pythonanywhere.com/login
+    1. 登录: http://traiyipaw.pythonanywhere.com/login
+    2. 注册: http://traiyipaw.pythonanywhere.com/register
+3. 文章搜索: http://traiyipaw.pythonanywhere.com/search
+4. 分类管理: http://traiyipaw.pythonanywhere.com/category/manage
+    1. 新建分类: http://traiyipaw.pythonanywhere.com/category/new
+    2. 分类修改: http://traiyipaw.pythonanywhere.com/category/1/edit
+    3. 分类删除: http://traiyipaw.pythonanywhere.com/category/manage
+5. 文章管理: http://traiyipaw.pythonanywhere.com/manage_post
+    1. 新建文章: http://traiyipaw.pythonanywhere.com/new_post
+    2. 文章修改: http://traiyipaw.pythonanywhere.com/post/1/edit
+    3. 文章删除: http://traiyipaw.pythonanywhere.com/manage_post
+6. 设置中心: http://traiyipaw.pythonanywhere.com/setting
 
-有效功能页面数量共8个
+有效功能页面数量共14个
 
 ## 3.2 数据流程图
 
-![image-20210124225007953](image/image-20210124225007953.png)
+![image-20210126024831930](image/image-20210126024831930.png)
 
 ## 3.3 功能
 
-主页展示、登陆系统、文章分类、文章编写、文章展示、文章管理
+1. 主页展示 
+2. 登录注册
+3. 文章搜索
+4. 分类管理
+5. 文章管理
+6. 设置中心
 
 ## 3.4 心得
 
-能够本地运行良好的项目并不意味着在部署后依然能够良好运行。部署中我遇到如下问题：
+能够本地运行良好的项目并不意味着在部署后依然能够良好运行。部署中我遇到如下问题:
 
 
 1. 网站无法显示（WSGI未配置好）

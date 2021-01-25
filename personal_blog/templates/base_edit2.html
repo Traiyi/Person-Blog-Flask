@@ -1,0 +1,33 @@
+{% extends 'post_detail.html' %}
+{% from 'bootstrap/form.html' import render_form %}
+
+
+{% block head %}
+    {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>
+
+{% endblock %}
+
+
+{% block title %} 编辑分类 {% endblock %}
+{% block content %}
+    <form method="POST">
+
+        {{ form.csrf_token }}
+
+        {{ form.name }}
+
+        <br><br>
+
+        {{ form.submit }}
+    </form>
+    <br>
+    <br>
+    <br>
+    <br>
+{% endblock %}
+    
+
+
+
+
