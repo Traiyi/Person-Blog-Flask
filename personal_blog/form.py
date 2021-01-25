@@ -18,6 +18,14 @@ class RegisterForm(FlaskForm):
     # remember = BooleanField('记住我')
     submit = SubmitField('注册')
 
+class SearchForm(FlaskForm):
+
+    search= StringField( '搜索',validators=[DataRequired(), Length(1, 20)])
+    # password = PasswordField('密码', validators=[DataRequired(), Length(1, 128)])
+    # password = PasswordField('密码', validators=[DataRequired(), Length(1, 128)])
+    # remember = BooleanField('记住我')
+    submit = SubmitField('提交')
+
 class PostForm(FlaskForm):
     title = StringField('标题', validators=[DataRequired(), Length(1, 60)], render_kw={'class':'form-title'})
     category = SelectField('分类', coerce=int, default=1)

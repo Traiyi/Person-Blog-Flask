@@ -56,6 +56,10 @@
 text-shadow: 5px 3px 5px  rgb(199, 53, 17);
 }
 
+.title2{
+	text-align: center;
+}
+
 .post1{
     border:2px solid #a1a1a1;
 	padding:10px 40px;

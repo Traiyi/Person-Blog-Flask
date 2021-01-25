@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, request, flash, current_app
 from personal_blog.models import Post, Category,Admin
+
+from personal_blog.form import LoginForm, RegisterForm, PostForm, AdminForm, SetPasswordform, CategoryForm,SearchForm
 # import personal_blog.config as config
 import os
 blog_bp = Blueprint('blog', __name__)
@@ -63,14 +65,19 @@ def show_my_blog():
 
 
 @blog_bp.route('/search',methods=['GET', 'POST'])
-def show_search(category_id):
-    category = Category.query.get_or_404(category_id)
-    page = request.args.get('page', 1, type=int)
-    per_page = 5
-    pagination = Post.query.with_parent(category).order_by(Post.timestamp.desc()).paginate(page, per_page)
-    posts = pagination.items
-    return render_template('blog/category.html', category=category, pagination=pagination, posts=posts)
+def search():
+    # print('ss')
+    form = SearchForm()
+    if form.validate_on_submit():
+        search= form.search.data
+        page = request.args.get('page', 1, type=int)
+        per_page = 5
+        pagination = Post.query.filter(Post.title.like('%'+search+'%')).order_by(Post.timestamp.desc()).paginate(page, per_page)
+        posts = pagination.items
+        return render_template('blog/show_search.html',  pagination=pagination, posts=posts)
+    # category = Category.query.get_or_404(category_id)
 
+    return render_template('blog/search.html', form=form)
 
 
 @blog_bp.route('/individual_resume')

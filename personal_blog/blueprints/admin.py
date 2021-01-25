@@ -139,9 +139,13 @@ def delete_category(category_id):
 @admin_bp.route('/manage_post')  # 文章管理
 @login_required
 def manage():
+    with open('personal_blog/config', 'r') as f:
+        s = f.read()
+    id = int(s)
+    print(id)
     page = request.args.get('page', 1, type=int)  # 从查询字符串中获取当前页数
     per_page = 5  # 每页的数量
-    pagination = Post.query.order_by(Post.timestamp.desc()).paginate(page, per_page=per_page)  # 分页对象
+    pagination = Post.query.filter_by(user_id=id).order_by(Post.timestamp.desc()).paginate(page, per_page=per_page)  # 分页对象
     posts = pagination.items  # 当前页数记录的列表
 
     return render_template('admin/manage_post.html', pagination=pagination, posts=posts)
