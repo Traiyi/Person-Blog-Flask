@@ -236,6 +236,33 @@ admin = Admin.query.first()
 
 编程思维带给我们的不仅是代码、程序、数据库、网站这些具体的东西，更多是锻炼了我们解决问题、逻辑思维的能力，我从中学会了如何将大项目分解成小任务、将小代码如何组合成大项目，同时项目开发中遇到的种种困难也锻炼了我的耐心与恒心，让我更有勇气面对一切挑战。
 
+# 部署补充
+
+# 虚拟环境操作
+
+```
+# 创建环境
+virtualenv env --python=python3.7
+python -m venv env  
+
+# 激活
+. env/bin/activate  # Linux 或 macOS 
+source env/bin/activate # Linux 或 macOS
+env\Scripts\activate  # Windows
+
+
+
+# 安装依赖
+(env) $ pip install -r requirements.txt  # 安装所有依赖
+(env) $ pip install -i https://pypi.python.org/simple -r requirements.txt # 安装所有依赖
+
+# flask操作
+(env) $ flask initdb  # 初始化数据库
+(env) $ flask forge  # 插入记录数据库
+
+# 退出
+(env) $ deactivate
+```
 
 # 参考
 

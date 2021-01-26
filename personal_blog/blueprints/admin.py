@@ -36,7 +36,6 @@ def register():
 
     return render_template('admin/register.html', form=form)
 
-
 @admin_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -220,7 +219,10 @@ def edit_this_site():
 def set_password():
     form = SetPasswordform()
     if form.validate_on_submit():
-        admin = Admin.query.first()
+        username = form.username.data
+        print(username)
+        admin = Admin.query.filter_by(username=username).first()
+        # admin = Admin.query.first()
         new_password = form.password.data
         admin.username = form.username.data
         admin.set_password(new_password)
