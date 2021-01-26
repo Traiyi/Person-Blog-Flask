@@ -33,9 +33,8 @@ def register():
         # if admin.check_password(password):
         # login_user(admin, remember)
         #
-        # return redirect_back()
 
-    登录
+    return render_template('admin/register.html', form=form)
 
 
 @admin_bp.route('/login', methods=['GET', 'POST'])
