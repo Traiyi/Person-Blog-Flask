@@ -45,3 +45,9 @@ class Admin(db.Model, UserMixin):
     #
     # def get_id(self):
     #     return id
+
+class Log(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    ip = db.Column(db.String(30))
+    operate_user = db.Column(db.String(30))
+    operate = db.Column(db.String(30))

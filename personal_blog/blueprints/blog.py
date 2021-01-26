@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, current_app
-from personal_blog.models import Post, Category,Admin
+from personal_blog.models import Post, Category,Admin,Log
 
 from personal_blog.form import LoginForm, RegisterForm, PostForm, AdminForm, SetPasswordform, CategoryForm,SearchForm
 # import personal_blog.config as config
@@ -62,6 +62,13 @@ def show_my_blog():
     pagination = Post.query.with_parent(admin).order_by(Post.timestamp.desc()).paginate(page, per_page)
     posts = pagination.items
     return render_template('blog/my_blog.html', admin=admin, pagination=pagination, posts=posts)
+
+@blog_bp.route('/log')
+def log():
+    logs = Log.query.all()
+    for i in logs:
+        print(i.ip)
+    return render_template('blog/log.html', logs= logs)
 
 
 @blog_bp.route('/search',methods=['GET', 'POST'])

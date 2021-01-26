@@ -7,7 +7,7 @@ CREATE TABLE category (
 	UNIQUE (name)
 );
 INSERT INTO category VALUES(1,'编程');
-INSERT INTO category VALUES(2,'individual_resume');
+INSERT INTO category VALUES(2,'individual_resume111');
 INSERT INTO category VALUES(3,'this_site');
 INSERT INTO category VALUES(4,'life');
 CREATE TABLE admin (
@@ -17,11 +17,17 @@ CREATE TABLE admin (
 	PRIMARY KEY (id), 
 	UNIQUE (username)
 );
-INSERT INTO admin VALUES(1,'admin','pbkdf2:sha256:150000$4bO1tM7f$9ec89319743f7f50c8eefff961c0724b6f80f9466a92538ff7c8ec5c7dd8e4f3');
+INSERT INTO admin VALUES(1,'admin','pbkdf2:sha256:150000$RLyrCAVD$f8c4dfe1bae4c2da93a784b56ad388fe8d706baf52825d5bffb7b21ffabf2178');
 INSERT INTO admin VALUES(2,'5','pbkdf2:sha256:150000$F1aQoh3n$d750c572502a035c80ebe06a3c83fe2a35e441bdbe2bf9366202f5d8c6cda5b8');
 INSERT INTO admin VALUES(3,'6','pbkdf2:sha256:150000$ov2t4aFD$466e288a057ae24e6581c17589e5ef09750285ce6dab452ede490d089dfb4337');
 INSERT INTO admin VALUES(4,'7','pbkdf2:sha256:150000$q9oSgT0x$6b0e840517b53907a0c3eac41311873fc2b52a66209852ae4815b117ad971f45');
 INSERT INTO admin VALUES(5,'Li','pbkdf2:sha256:150000$zTQMsk6U$7c62e2ac1edff6a9f007b493b518c9cc56f0d0f5f9d6a030dd45ca301cc7bc15');
+INSERT INTO admin VALUES(6,'111','pbkdf2:sha256:150000$xd4ozEBn$c8e90e5041a7d67b3b2a0caf0419bf9d0dc6b415ecc65b646eaeaec6947d734c');
+INSERT INTO admin VALUES(7,'1111','pbkdf2:sha256:150000$CgYlsuhV$6ed044588f6c8bbe98203ef24e6276b086eb8a79e0c0fda850edeb8d18654f2a');
+INSERT INTO admin VALUES(8,'q','pbkdf2:sha256:150000$585IDBh5$6504994a9afb4bdfd2874cd23af999c447058d88efca277702ee38ea9501ce2e');
+INSERT INTO admin VALUES(9,'11','pbkdf2:sha256:150000$abX1ksMI$d197c783513e8e8dd10047a1830f2f3f1efa21ef7e2c6d8884bb4d51cf163a5a');
+INSERT INTO admin VALUES(10,'333','pbkdf2:sha256:150000$D27nRC68$f0594cf606f4fc1345b48f019e93f1474b7e456fca396246225ed3db6ddae853');
+INSERT INTO admin VALUES(11,'a','pbkdf2:sha256:150000$Xfno7kFS$fff48d6c98c1b588ef9be994173461b0a9cb29d19d0c9aa0148062bb9fa04c78');
 CREATE TABLE post (
 	id INTEGER NOT NULL, 
 	title VARCHAR(60), 
@@ -68,5 +74,16 @@ INSERT INTO post VALUES(32,'你好',replace(replace('<p>12131</p>\r\n','\r',char
 INSERT INTO post VALUES(33,'你好',replace(replace('<p>wee33343</p>\r\n','\r',char(13)),'\n',char(10)),'2021-01-25 11:21:21.408304',1,NULL);
 INSERT INTO post VALUES(34,'33',replace(replace('<p>3333</p>\r\n','\r',char(13)),'\n',char(10)),'2021-01-25 11:23:23.740529',1,4);
 INSERT INTO post VALUES(35,'2323',replace(replace('<p>23232</p>\r\n','\r',char(13)),'\n',char(10)),'2021-01-25 11:25:39.454504',1,4);
+INSERT INTO post VALUES(36,'111',replace(replace('<p>343eertert</p>\r\n','\r',char(13)),'\n',char(10)),'2021-01-25 11:27:54.348019',1,4);
+INSERT INTO post VALUES(37,'12',replace(replace('<p>wewewewe</p>\r\n','\r',char(13)),'\n',char(10)),'2021-01-25 11:29:32.277891',1,5);
+INSERT INTO post VALUES(38,'1',replace(replace('<p>111111111111111111111111111111111111111111111</p>\r\n','\r',char(13)),'\n',char(10)),'2021-01-25 17:48:55.273923',1,6);
+CREATE TABLE log (
+	id INTEGER NOT NULL, 
+	ip VARCHAR(30), 
+	operate_user VARCHAR(30), 
+	operate VARCHAR(30), 
+	PRIMARY KEY (id)
+);
+INSERT INTO log VALUES(1,'127.0.0.1','a','登录');
 CREATE INDEX ix_post_timestamp ON post (timestamp);
 COMMIT;

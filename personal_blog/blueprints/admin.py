@@ -4,6 +4,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from personal_blog.form import LoginForm, RegisterForm, PostForm, AdminForm, SetPasswordform, CategoryForm
 from personal_blog.setting import redirect_back
 from personal_blog.extensions import db
+import personal_blog.tools as tools
 from flask_ckeditor import CKEditor, CKEditorField, upload_fail, upload_success
 # import personal_blog.config as config
 import os
@@ -13,6 +14,7 @@ admin_bp = Blueprint('admin', __name__)
 @admin_bp.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
+    print(request.remote_addr)
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
@@ -62,6 +64,7 @@ def login():
                 # config.user_id =admin.get_id()
                 # print(config.user_id)
                 flash('登录成功', 'info')
+                tools.add_log(request.remote_addr,'登录')
                 return redirect_back()
 
             flash('账号密码错误', 'warning')
@@ -101,6 +104,7 @@ def new_category():
         db.session.add(category)
         db.session.commit()
         flash('分类创建成功！', 'success')
+        tools.add_log(request.remote_addr, '新建分类')
         return redirect(url_for('.manage_category'))
     return render_template('admin/new_category.html', form=form)
 
@@ -117,6 +121,7 @@ def edit_category(category_id):
         category.name = form.name.data
         db.session.commit()
         flash('文章分类更新成功')
+        tools.add_log(request.remote_addr, '编辑分类')
         return redirect(url_for('.manage_category'))
     form.name.data = category.name
     return render_template('/admin/edit_category.html', form=form)
@@ -131,6 +136,7 @@ def delete_category(category_id):
         return redirect('blog.index')
     category.delete()
     flash('分类删除成功')
+    tools.add_log(request.remote_addr, '删除分类')
     return redirect(url_for('.manage_category'))
 
 
@@ -160,6 +166,7 @@ def edit_post(post_id):
         post.body = form.body.data
         db.session.commit()
         flash('文章更新成功')
+        tools.add_log(request.remote_addr, '编辑文章')
         return redirect(url_for('blog.show_post', post_id=post.id))
     form.title.data = post.title
     form.category.data = post.category_id
@@ -173,6 +180,7 @@ def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
     db.session.delete(post)
     db.session.commit()
+    tools.add_log(request.remote_addr, '删除文章')
     flash('文章删除成功！')
     return redirect_back()
 
@@ -193,6 +201,7 @@ def new_post():
         post = Post(title=title, category=category, body=body,admin=admin)
         db.session.add(post)
         db.session.commit()
+        tools.add_log(request.remote_addr, '新建文章')
         flash('博客发表成功')
         return redirect(url_for('blog.index'))
     return render_template('/admin/new_post.html', form=form)
